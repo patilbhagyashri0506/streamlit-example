@@ -1,40 +1,21 @@
-import altair as alt
-import numpy as np
-import pandas as pd
+# Importing necessary libraries
 import streamlit as st
 
-"""
-# Welcome to Streamlit!
+# Streamlit app
+def main():
+    # Title
+    st.title("Find the Largest Number")
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+    # Input for three numbers
+    num1 = st.number_input("Enter the first number:")
+    num2 = st.number_input("Enter the second number:")
+    num3 = st.number_input("Enter the third number:")
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+    # Logic to find the largest number
+    largest_num = max(num1, num2, num3)
 
-num_points = st.slider("Number of points in spiral", 1, 10000, 1100)
-num_turns = st.slider("Number of turns in spiral", 1, 300, 31)
+    # Display the result
+    st.write(f"The largest number is: {largest_num}")
 
-indices = np.linspace(0, 1, num_points)
-theta = 2 * np.pi * num_turns * indices
-radius = indices
-
-x = radius * np.cos(theta)
-y = radius * np.sin(theta)
-
-df = pd.DataFrame({
-    "x": x,
-    "y": y,
-    "idx": indices,
-    "rand": np.random.randn(num_points),
-})
-
-st.altair_chart(alt.Chart(df, height=700, width=700)
-    .mark_point(filled=True)
-    .encode(
-        x=alt.X("x", axis=None),
-        y=alt.Y("y", axis=None),
-        color=alt.Color("idx", legend=None, scale=alt.Scale()),
-        size=alt.Size("rand", legend=None, scale=alt.Scale(range=[1, 150])),
-    ))
+if __name__ == "__main__":
+    main()
